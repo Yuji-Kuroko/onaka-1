@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  db:
+    restart: always
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: ${ONAKA_DEV_DB_USERNAME}
+      POSTGRES_PASSWORD: ${ONAKA_DEV_DB_PASSWORD}
+    ports:
+      - target: 5432
+        published: ${ONAKA_DEV_DB_PORT}
+        protocol: tcp
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
