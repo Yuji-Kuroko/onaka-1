@@ -2,6 +2,9 @@ require './app/slack_client'
 require './app/connect_database'
 
 class Emoji < ActiveRecord::Base
+  has_many :users, througn: :user_emojis
+  has_many :user_emojis
+
   UNAVAILABLE_EMOJIS = %w[
     onaka
   ].freeze
