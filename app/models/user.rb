@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler'
 Bundler.require
 
@@ -5,6 +7,7 @@ require './app/lib/connect_database'
 require './app/models/onaka'
 require './app/models/user_onaka'
 
+# Slack ユーザに対応するクラス
 class User < ActiveRecord::Base
   has_many :user_onakas
   has_many :onakas, through: :user_onakas

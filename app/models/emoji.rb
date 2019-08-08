@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler'
 Bundler.require
 
@@ -6,6 +8,7 @@ require './app/lib/connect_database'
 
 require_relative './onaka'
 
+# Slack の emoji やエイリアスと一対一対応するクラス
 class Emoji < ActiveRecord::Base
   has_many :onakas
 
