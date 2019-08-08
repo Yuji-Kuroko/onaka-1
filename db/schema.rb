@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2019_07_28_194801) do
     t.integer "stamina_capacity", default: 60, null: false
     t.integer "last_stamina", default: 60, null: false
     t.datetime "stamina_updated_at", default: "2019-07-01 00:00:00", null: false
+    t.integer "score", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slack_id"], name: "index_users_on_slack_id"

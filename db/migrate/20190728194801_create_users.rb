@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.integer :stamina_capacity, null: false, default: 60
       t.integer :last_stamina, null: false, default: 60
       t.timestamp :stamina_updated_at, null: false, default: '2019-07-01 00:00:00'
+      t.integer :score, null: false, default: 0
       t.timestamps
     end
 
