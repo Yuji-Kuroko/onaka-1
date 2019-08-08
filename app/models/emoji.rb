@@ -10,7 +10,7 @@ require_relative './onaka'
 
 # Slack の emoji やエイリアスと一対一対応するクラス
 class Emoji < ActiveRecord::Base
-  has_many :onakas
+  belongs_to :onaka
 
   def self.update_emoji_list
     emoji_list = SLACK_CLIENT.web_client.emoji_list

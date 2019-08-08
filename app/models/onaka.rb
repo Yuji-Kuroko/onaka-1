@@ -11,6 +11,7 @@ require './app/lib/connect_database'
 class Onaka < ActiveRecord::Base
   has_many :users, through: :user_onakas
   has_many :user_onakas
+  has_many :emojis
 
   scope :order_by_frequency, -> { order(frequency: :desc) }
   scope :has_appeared, -> { where.not(frequency: 0) }
@@ -55,6 +56,16 @@ class Onaka < ActiveRecord::Base
       }
 
       Onaka.has_appeared.order_by_frequency.offset(index).first
+    end
+  end
+
+  def self.update_frequency(text)
+    ActiveRecord::Base.transaction do
+      Emoji.where(name: text.scan(EMOJI_PATTERN).uniq).find_each do |emoji|
+        emoji.onaka.then do |onaka|
+          onaka.update!(frequency: onaka.frequency + 1)
+        end
+      end
     end
   end
 end
