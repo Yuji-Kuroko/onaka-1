@@ -105,15 +105,16 @@ class Bot
   end
 
   def status(user, current_time, data)
-    score = bar = nil
+    score = rank = bar = nil
     ActiveRecord::Base.transaction do
       score = user.score
+      rank = user.rank
       bar = progress_bar(user.stamina(current_time), user.stamina_capacity)
     end
 
     post(<<~MESSAGE, data)
-      スコア: #{'%7d' % score}
-      スタミナ: #{bar}
+      :sports_medal: #{rank}th (#{score}pts)
+      :blue_heart: #{bar}
     MESSAGE
   end
 end

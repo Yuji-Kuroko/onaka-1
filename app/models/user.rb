@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     [[basic_income + last_stamina, stamina_capacity].min, last_stamina].max
   end
 
+  def rank
+    User.where.not(score: 0..score).count + 1
+  end
+
   def increase_stamina(current_time, soft_inc = 0, hard_inc = 0)
     update!(
       last_stamina: [
