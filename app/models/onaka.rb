@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'bundler'
-Bundler.require
-
 require './app/lib/slack_client'
 require './app/lib/connect_database'
 
