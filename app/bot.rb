@@ -89,7 +89,7 @@ class Bot
     when :lack_of_stamina
       post(<<~MESSAGE, data)
         :error: スタミナが足りません
-        スタミナ #{progress_bar(result[:current_stamina], result[:stamina_capacity])}
+        :blue_heart: #{progress_bar(result[:current_stamina], result[:stamina_capacity])}
         (おなかうらないを#{count}回するにはスタミナが#{result[:required_stamina]}必要です
       MESSAGE
     when :succeed
