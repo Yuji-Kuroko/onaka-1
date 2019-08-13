@@ -56,6 +56,8 @@ class Bot
       uranai(cmd.size, user, current_time, data)
     when 'status'
       status(user, current_time, data)
+    when 'help'
+      help(data)
     end
   end
 
@@ -112,6 +114,21 @@ class Bot
     post(<<~MESSAGE, data)
       :sports_medal: #{rank}th (#{score}pts)
       :blue_heart: #{bar}
+    MESSAGE
+  end
+
+  def help(data)
+    post(<<~MESSAGE, data)
+      *onaka help*
+          おなかの使い方を表示します。
+
+      *onaka ?*
+          あなたのおなかの現在または未来の状態をうらないます。
+          一回おなかうらないをおこなうと、スタミナを #{URANAI_COST} 消費します。
+          また、 `onaka ??' のように ? を連ねることで、連続でうらなうことができます。
+
+      *onaka status*
+          現在のあなたのスタミナやスコア、ランクなどを表示します。
     MESSAGE
   end
 end
