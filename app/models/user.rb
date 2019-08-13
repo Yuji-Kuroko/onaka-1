@@ -26,9 +26,9 @@ class User < ActiveRecord::Base
       last_stamina: [
         [
           stamina(current_time) + soft_inc,
-          stamina_capacity
+          stamina_capacity,
         ].min,
-        0
+        0,
       ].max + hard_inc,
       stamina_updated_at: current_time
     )
