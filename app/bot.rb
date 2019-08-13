@@ -64,11 +64,9 @@ class Bot
   URANAI_COST = 15
 
   def uranai(count, user, current_time, data)
-    result = nil
-
-    ActiveRecord::Base.transaction do
+    result = ActiveRecord::Base.transaction {
       if user.stamina(current_time) < URANAI_COST * count
-        result = {
+        {
           status: :lack_of_stamina,
           current_stamina: user.stamina(current_time),
           stamina_capacity: user.stamina_capacity,
@@ -80,12 +78,12 @@ class Bot
         user.onakas.push(drawed_onakas)
         user.update!(score: user.score + drawed_onakas.sum { |o| 2**(o.rarity_level + 4) })
 
-        result = {
+        {
           status: :succeed,
           drawed_onakas: drawed_onakas.map { |onaka| [onaka, onaka.rarity_level] },
         }
       end
-    end
+    }
 
     case result[:status]
     when :lack_of_stamina
@@ -104,12 +102,13 @@ class Bot
   end
 
   def status(user, current_time, data)
-    score = rank = bar = nil
-    ActiveRecord::Base.transaction do
-      score = user.score
-      rank = user.rank
-      bar = progress_bar(user.stamina(current_time), user.stamina_capacity)
-    end
+    score, rank, bar = ActiveRecord::Base.transaction {
+      [
+        user.score,
+        user.rank,
+        progress_bar(user.stamina(current_time), user.stamina_capacity),
+      ]
+    }
 
     post(<<~MESSAGE, data)
       :sports_medal: #{rank}th (#{score}pts)
