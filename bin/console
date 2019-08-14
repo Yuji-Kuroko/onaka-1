@@ -4,6 +4,6 @@
 require 'bundler/setup'
 Bundler.require
 
-require './app/bot'
+require './app/onaka_bot/slack_bot'
 
 Pry.start
