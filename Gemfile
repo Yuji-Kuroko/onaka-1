@@ -16,3 +16,5 @@ gem "slack-ruby-client", "~> 0.14.4"
 gem "async-websocket", "~> 0.8.0"
 
 gem "rspec", "~> 3.8", :group => :development
+
+gem "pry", "~> 0.12.2"

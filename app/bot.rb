@@ -131,6 +131,3 @@ class Bot
     MESSAGE
   end
 end
-
-bot = Bot.new
-bot.start!
