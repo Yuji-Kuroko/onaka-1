@@ -4,7 +4,6 @@
 require 'bundler/setup'
 Bundler.require
 
-require './app/bot'
+require './app/onaka_bot'
 
-bot = Bot.new
-bot.start!
+OnakaBot.start!
