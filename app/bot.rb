@@ -58,6 +58,8 @@ class Bot
       status(user, current_time, data)
     when 'help'
       help(data)
+    else
+      error(cmd, data)
     end
   end
 
@@ -129,5 +131,9 @@ class Bot
       *onaka status*
           現在のあなたのスタミナやスコア、ランクなどを表示します。
     MESSAGE
+  end
+
+  def error(cmd, data)
+    post(":error: コマンド *#{cmd}* は見つかりません", data)
   end
 end
