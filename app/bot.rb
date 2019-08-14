@@ -96,7 +96,7 @@ class Bot
       result[:drawed_onakas].each_with_index do |(onaka, rarity_level), index|
         sleep 2 unless index.zero?
 
-        post("*[#{Onaka::RARITY[rarity_level]}]* #{onaka.display_name}", data)
+        post("#{Onaka::RARITY[rarity_level]}    #{onaka.display_name}", data)
       end
     end
   end

@@ -21,7 +21,16 @@ class Onaka < ActiveRecord::Base
     Onaka.where.not(frequency: 0..frequency).count + 1
   end
 
-  RARITY = %w[N R SR SSR HR UR XXX].freeze
+  RARITY = %w[
+    :rarity_n:
+    :rarity_r:
+    :rarity_sr:
+    :rarity_ssr:
+    :rarity_hr:
+    :rarity_ur:
+    :rarity_x:
+    :rarity_question:
+  ].freeze
 
   def rarity_level
     (rank - 1) * RARITY.size / Onaka.has_appeared.count
