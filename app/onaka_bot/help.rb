@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 require './app/onaka_bot/base'
+require './app/lib/i18n_settings'
 
 module OnakaBot
   module Help
     extend Base
 
     def self.help
-      <<~MESSAGE
-        *onaka help*
-            おなかの使い方を表示します。
-      MESSAGE
+      I18n.t('modules.help.help.')
     end
 
     def self.exec(cmd, _argv, _user, _current_time, data)

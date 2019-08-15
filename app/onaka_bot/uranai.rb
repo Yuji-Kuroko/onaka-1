@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require './app/onaka_bot/base'
+require './app/lib/i18n_settings'
 
 module OnakaBot
   module Uranai
@@ -7,12 +10,7 @@ module OnakaBot
     URANAI_COST = 15
 
     def self.help
-      <<~MESSAGE
-        *onaka ?*
-            あなたのおなかの現在または未来の状態をうらないます。
-            一回おなかうらないをおこなうと、スタミナを #{URANAI_COST} 消費します。
-            また、 `onaka ??' のように ? を連ねることで、連続でうらなうことができます。
-      MESSAGE
+      I18n.t('modules.uranai.help.', cost: URANAI_COST)
     end
 
     def self.exec(cmd, _argv, user, current_time, data)
@@ -47,11 +45,15 @@ module OnakaBot
 
       case result[:status]
       when :lack_of_stamina
-        post(<<~MESSAGE, data)
-          :error: スタミナが足りません
-          :blue_heart: #{progress_bar(result[:current_stamina], result[:stamina_capacity])}
-          (おなかうらないを#{count}回するにはスタミナが#{result[:required_stamina]}必要です
-        MESSAGE
+        post(
+          I18n.t(
+            'modules.uranai.lack_of_stamina.',
+            stamina_bar: progress_bar(result[:current_stamina], result[:stamina_capacity]),
+            count: count,
+            required_stamina: result[:required_stamina],
+          ),
+          data,
+        )
       when :succeed
         result[:drawed_onakas].each_with_index do |(onaka, rarity_level), index|
           sleep 2 unless index.zero?

@@ -18,3 +18,5 @@ gem "async-websocket", "~> 0.8.0"
 gem "rspec", "~> 3.8", :group => :development
 
 gem "pry", "~> 0.12.2"
+
+gem "i18n", "~> 1.6"
