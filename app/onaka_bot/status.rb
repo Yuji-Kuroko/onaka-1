@@ -7,8 +7,8 @@ module OnakaBot
   module Status
     extend Base
 
-    def self.help
-      I18n.t('modules.status.help.')
+    def self.help(locale)
+      I18n.t('modules.status.help.', locale: locale)
     end
 
     def self.exec(cmd, _argv, user, current_time, data)

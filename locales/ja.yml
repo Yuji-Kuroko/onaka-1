@@ -19,7 +19,9 @@ ja:
         *onaka config locale* _LOCALE_
             あなたの言語設定を _LOCALE_ (%{available_locales}) に変更します。
       subcmd_not_found: ":error: config のサブコマンド *%{subcommand}* は見つかりません"
+      subcmd_not_given: ":error: config にサブコマンドが与えられていません"
       unavailable_locale: ":warning: ロケール %{set_locale} は無効です"
+      check_locale: "あなたの言語設定は %{current_locale} です"
       locale_changed: "あなたの言語設定は %{set_locale} に変更されました"
 
     uranai:

@@ -7,8 +7,8 @@ module OnakaBot
   module Challenge
     extend Base
 
-    def self.help
-      I18n.t('modules.challenge.help.')
+    def self.help(locale)
+      I18n.t('modules.challenge.help.', locale: locale)
     end
 
     def self.exec(cmd, argv, user, current_time, data)
@@ -67,6 +67,7 @@ module OnakaBot
             bet: result[:bet],
             current_stamina: result[:current_stamina],
             target: result[:target],
+            locale: user.locale,
           ),
           data,
         )
@@ -77,6 +78,7 @@ module OnakaBot
           prob_percentage: '%d' % (result[:prob] * 100),
           stamina_succeed: result[:current_stamina] - result[:bet] + result[:target],
           stamina_failed: result[:current_stamina] - result[:bet],
+          locale: user.locale,
         ).each do |message|
           post(message, data)
           sleep(2)
@@ -84,9 +86,9 @@ module OnakaBot
         sleep(6)
         case result[:status]
         when :challenge_succeed
-          post(I18n.t('modules.challenge.succeed.', result: result[:result]), data)
+          post(I18n.t('modules.challenge.succeed.', result: result[:result], locale: user.locale), data)
         when :challenge_failed
-          post(I18n.t('modules.challenge.failed.', result: result[:result]), data)
+          post(I18n.t('modules.challenge.failed.', result: result[:result], locale: user.locale), data)
         end
       end
     end
