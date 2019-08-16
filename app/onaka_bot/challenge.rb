@@ -73,6 +73,7 @@ module OnakaBot
       when :challenge_succeed, :challenge_failed
         I18n.t(
           'modules.challenge.inciting_words.',
+          current_stamina: result[:current_stamina],
           prob_percentage: '%d' % (result[:prob] * 100),
           stamina_succeed: result[:current_stamina] - result[:bet] + result[:target],
           stamina_failed: result[:current_stamina] - result[:bet],

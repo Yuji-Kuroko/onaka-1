@@ -13,6 +13,7 @@ module OnakaBot
   extend OnakaBot::Base
 
   BOT_MODULES = [
+    Config,
     Uranai,
     Status,
     Challenge,

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './app/lib/slack_client'
+require './app/lib/i18n_settings'
 require './app/lib/connect_database'
 
 # おなか占いの出目クラス。
