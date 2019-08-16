@@ -1,0 +1,62 @@
+---
+ja:
+  basic:
+    error: ":error: コマンド *%{command}* は見つかりません"
+
+  modules:
+    help:
+      help: |
+        *onaka help*
+            おなかの使い方を表示します。
+
+    status:
+      help: |
+        *onaka status*
+            現在のあなたのスタミナやスコア、ランクなどを表示します。
+
+    config:
+      help: |
+        *onaka config locale* _LOCALE_
+            あなたの言語設定を _LOCALE_ (%{available_locales}) に変更します。
+      subcmd_not_found: ":error: config のサブコマンド *%{subcommand}* は見つかりません"
+      unavailable_locale: ":warning: ロケール %{set_locale} は無効です"
+      locale_changed: "あなたの言語設定は %{set_locale} に変更されました"
+
+    uranai:
+      help: |
+        *onaka ?*
+            あなたのおなかの現在または未来の状態をうらないます。
+            一回おなかうらないをおこなうと、スタミナを %{cost} 消費します。
+            また、 `onaka ??' のように ? を連ねることで、連続でうらなうことができます。
+
+      lack_of_stamina: |
+        :error: スタミナが足りません
+        :blue_heart: %{stamina_bar}
+        (おなかうらないを %{count} 回するにはスタミナが %{required_stamina} 必要です
+
+    challenge:
+      help: |
+        *onaka challenge [target [bet]]*
+            現在のあなたのスタミナのうち、賭けスタミナ *bet* を目標スタミナ *target* にするチャレンジをおこないます。
+            目標スタミナが賭けスタミナよりもかけ離れているほど成功率は低くなります。
+            失敗した場合、賭けスタミナはゼロになります。
+            なお、本機能は非推奨機能です。
+
+      out_of_range_bet: |
+        :error: 賭けスタミナまたは目標スタミナの値が不正です
+        賭けスタミナ (%{bet}) は、 *現在のスタミナ (%{current_stamina}) 以上* かつ *目標スタミナ (%{target}) 未満* である必要があります
+
+      inciting_words:
+        - チャレンジを開始します。
+        - "現在、あなたのスタミナは %{current_stamina} です。"
+        - "今回のチャレンジでは、 %{prob_percentage} %の確率でスタミナが %{stamina_succeed} になります。"
+        - "チャレンジに失敗するとスタミナが %{stamina_failed} になります。"
+        - あなたのスタミナは・・・
+
+      succeed: |
+        %{result} になりました。
+        おめでとうございます！
+
+      failed: |
+        %{result} になりました。
+        残念でした。^p^

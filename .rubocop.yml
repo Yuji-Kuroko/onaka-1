@@ -11,6 +11,9 @@ Style/AsciiComments:
 Style/BlockDelimiters:
   EnforcedStyle: semantic
 
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: consistent_comma
 

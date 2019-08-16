@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './app/lib/connect_database'
+require './app/lib/i18n_settings'
 require './app/models/onaka'
 require './app/models/user_onaka'
 
@@ -8,6 +9,8 @@ require './app/models/user_onaka'
 class User < ActiveRecord::Base
   has_many :user_onakas
   has_many :onakas, through: :user_onakas
+
+  validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
   def stamina(current_time)
     # 12 分で 1 スタミナが貯まる
@@ -30,7 +33,7 @@ class User < ActiveRecord::Base
         ].min,
         0,
       ].max,
-      stamina_updated_at: current_time
+      stamina_updated_at: current_time,
     )
   end
 
@@ -41,7 +44,7 @@ class User < ActiveRecord::Base
   def increase_stamina!(current_time, hard_inc = 0)
     update!(
       last_stamina: stamina(current_time) + hard_inc,
-      stamina_updated_at: current_time
+      stamina_updated_at: current_time,
     )
   end
 

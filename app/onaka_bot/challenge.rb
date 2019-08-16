@@ -1,17 +1,14 @@
+# frozen_string_literal: true
+
 require './app/onaka_bot/base'
+require './app/lib/i18n_settings'
 
 module OnakaBot
   module Challenge
     extend Base
 
     def self.help
-      <<~MESSAGE
-        *onaka challenge [target [bet]]*
-            現在のあなたのスタミナのうち、賭けスタミナ *bet* を目標スタミナ *target* にするチャレンジをおこないます。
-            目標スタミナが賭けスタミナよりもかけ離れているほど成功率は低くなります。
-            失敗した場合、賭けスタミナはゼロになります。
-            なお、本機能は非推奨機能です。
-      MESSAGE
+      I18n.t('modules.challenge.help.')
     end
 
     def self.exec(cmd, argv, user, current_time, data)
@@ -64,33 +61,32 @@ module OnakaBot
 
       case result[:status]
       when :out_of_range_bet
-        post(<<~MESSAGE, data)
-          :error: 賭けスタミナまたは目標スタミナの値が不正です
-          賭けスタミナ (#{result[:bet]}) は、 *現在のスタミナ (#{result[:current_stamina]}) 以上* かつ *目標スタミナ (#{result[:target]}) 未満* である必要があります
-        MESSAGE
+        post(
+          I18n.t(
+            'modules.challenge.out_of_range_bet.',
+            bet: result[:bet],
+            current_stamina: result[:current_stamina],
+            target: result[:target],
+          ),
+          data,
+        )
       when :challenge_succeed, :challenge_failed
-        [
-          'チャレンジを開始します。',
-          "現在、あなたのスタミナは #{result[:current_stamina]} です。",
-          "今回のチャレンジでは、 #{'%d' % (result[:prob] * 100)} %の確率でスタミナが #{result[:current_stamina] - result[:bet] + result[:target]} になります。",
-          "チャレンジに失敗するとスタミナが #{result[:current_stamina] - result[:bet]} になります。",
-          'あなたのスタミナは・・・',
-        ].each do |message|
+        I18n.t(
+          'modules.challenge.inciting_words.',
+          current_stamina: result[:current_stamina],
+          prob_percentage: '%d' % (result[:prob] * 100),
+          stamina_succeed: result[:current_stamina] - result[:bet] + result[:target],
+          stamina_failed: result[:current_stamina] - result[:bet],
+        ).each do |message|
           post(message, data)
           sleep(2)
         end
         sleep(6)
         case result[:status]
         when :challenge_succeed
-          post(<<~MESSAGE, data)
-            #{result[:result]} になりました。
-            おめでとうございます！
-          MESSAGE
+          post(I18n.t('modules.challenge.succeed.', result: result[:result]), data)
         when :challenge_failed
-          post(<<~MESSAGE, data)
-            #{result[:result]} になりました。
-            残念でした。^p^
-          MESSAGE
+          post(I18n.t('modules.challenge.failed.', result: result[:result]), data)
         end
       end
     end

@@ -4,6 +4,7 @@ require './app/lib/slack_client'
 require './app/lib/connect_database'
 require './app/models/user'
 require './app/models/emoji'
+require './app/lib/i18n_settings'
 
 Dir.glob('./app/onaka_bot/*.rb').each(&method(:require))
 
@@ -12,6 +13,7 @@ module OnakaBot
   extend OnakaBot::Base
 
   BOT_MODULES = [
+    Config,
     Uranai,
     Status,
     Challenge,
@@ -43,6 +45,6 @@ module OnakaBot
   end
 
   def self.error(cmd, data)
-    post(":error: コマンド *#{cmd}* は見つかりません", data)
+    post(I18n.t('basic.error.', command: cmd), data)
   end
 end

@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 require './app/onaka_bot/base'
+require './app/lib/i18n_settings'
 
 module OnakaBot
   module Status
     extend Base
 
     def self.help
-      <<~MESSAGE
-        *onaka status*
-            現在のあなたのスタミナやスコア、ランクなどを表示します。
-      MESSAGE
+      I18n.t('modules.status.help.')
     end
 
     def self.exec(cmd, _argv, user, current_time, data)
