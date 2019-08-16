@@ -9,8 +9,8 @@ module OnakaBot
 
     URANAI_COST = 15
 
-    def self.help
-      I18n.t('modules.uranai.help.', cost: URANAI_COST)
+    def self.help(locale)
+      I18n.t('modules.uranai.help.', cost: URANAI_COST, locale: locale)
     end
 
     def self.exec(cmd, _argv, user, current_time, data)
@@ -51,6 +51,7 @@ module OnakaBot
             stamina_bar: progress_bar(result[:current_stamina], result[:stamina_capacity]),
             count: count,
             required_stamina: result[:required_stamina],
+            locale: user.locale,
           ),
           data,
         )

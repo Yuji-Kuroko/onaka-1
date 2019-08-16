@@ -41,10 +41,10 @@ module OnakaBot
   end
 
   def self.execute(cmd, argv, user, current_time, data)
-    BOT_MODULES.any? { |m| m.exec(cmd, argv, user, current_time, data) } || error(cmd, data)
+    BOT_MODULES.any? { |m| m.exec(cmd, argv, user, current_time, data) } || error(cmd, user, data)
   end
 
-  def self.error(cmd, data)
-    post(I18n.t('basic.error.', command: cmd), data)
+  def self.error(cmd, user, data)
+    post(I18n.t('basic.error.', command: cmd), data, locale: user.locale)
   end
 end

@@ -7,10 +7,11 @@ module OnakaBot
   module Config
     extend Base
 
-    def self.help
+    def self.help(locale)
       I18n.t(
         'modules.config.help.',
         available_locales: I18n.available_locales.join(', '),
+        locale: locale,
       )
     end
 
@@ -21,15 +22,37 @@ module OnakaBot
 
       case subcmd
       when 'locale'
-        locale(val, user, data)
+        if val.nil?
+          check_locale(user, data)
+        else
+          locale(val, user, data)
+        end
       else
-        post(
-          I18n.t('modules.config.subcmd_not_found.', subcommand: subcmd),
-          data,
-        )
+        if subcmd.nil?
+          post(
+            I18n.t('modules.config.subcmd_not_given.', locale: user.locale),
+            data,
+          )
+        else
+          post(
+            I18n.t('modules.config.subcmd_not_found.', subcommand: subcmd, locale: user.locale),
+            data,
+          )
+        end
       end
 
       true
+    end
+
+    def self.check_locale(user, data)
+      post(
+        I18n.t(
+          'modules.config.check_locale.',
+          current_locale: user.locale,
+          locale: user.locale,
+        ),
+        data,
+      )
     end
 
     def self.locale(val, user, data)
