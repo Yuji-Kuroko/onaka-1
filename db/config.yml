@@ -1,7 +1,23 @@
 development:
   adapter: postgresql
-  host: <%= ENV.fetch('ONAKA_DEV_DB_HOST', 'localhost') %>
-  port: <%= ENV.fetch('ONAKA_DEV_DB_PORT', 5432) %>
-  username: <%= ENV.fetch('ONAKA_DEV_DB_USERNAME', 'postgres') %>
-  password: <%= ENV.fetch('ONAKA_DEV_DB_PASSWORD', '') %>
-  database: <%= ENV.fetch('ONAKA_DEV_DB_DATABASE', 'onaka_development') %>
+  host: <%= ENV.fetch('ONAKA_DB_HOST', 'localhost') %>
+  port: <%= ENV.fetch('ONAKA_DB_PORT', 5432) %>
+  username: <%= ENV.fetch('ONAKA_DB_USERNAME', 'postgres') %>
+  password: <%= ENV.fetch('ONAKA_DB_PASSWORD', '') %>
+  database: 'onaka_development'
+
+test:
+  adapter: postgresql
+  host: <%= ENV.fetch('ONAKA_DB_HOST', 'localhost') %>
+  port: <%= ENV.fetch('ONAKA_DB_PORT', 5432) %>
+  username: <%= ENV.fetch('ONAKA_DB_USERNAME', 'postgres') %>
+  password: <%= ENV.fetch('ONAKA_DB_PASSWORD', '') %>
+  database: 'onaka_test'
+
+production:
+  adapter: postgresql
+  host: <%= ENV.fetch('ONAKA_DB_HOST', 'localhost') %>
+  port: <%= ENV.fetch('ONAKA_DB_PORT', 5432) %>
+  username: <%= ENV.fetch('ONAKA_DB_USERNAME', 'postgres') %>
+  password: <%= ENV.fetch('ONAKA_DB_PASSWORD', '') %>
+  database: 'onaka_production'

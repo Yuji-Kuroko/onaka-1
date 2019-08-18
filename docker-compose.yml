@@ -4,11 +4,11 @@ services:
     restart: always
     image: postgres:9.6
     environment:
-      POSTGRES_USER: ${ONAKA_DEV_DB_USERNAME}
-      POSTGRES_PASSWORD: ${ONAKA_DEV_DB_PASSWORD}
+      POSTGRES_USER: ${ONAKA_DB_USERNAME}
+      POSTGRES_PASSWORD: ${ONAKA_DB_PASSWORD}
     ports:
       - target: 5432
-        published: ${ONAKA_DEV_DB_PORT}
+        published: ${ONAKA_DB_PORT}
         protocol: tcp
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
