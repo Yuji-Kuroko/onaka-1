@@ -4,6 +4,7 @@ AllCops:
     - Gemfile
     - vendor/bundle/**/*
     - db/schema.rb
+    - spec/**/*
 
 Style/AsciiComments:
   Enabled: false

@@ -17,3 +17,8 @@ end
 group :development, :test do
   gem "rspec", "~> 3.8"
 end
+
+group :test do
+  gem "factory_bot", "~> 5.0"
+  gem "database_cleaner", "~> 1.7"
+end
