@@ -45,6 +45,6 @@ module OnakaBot
   end
 
   def self.error(cmd, user, data)
-    post(I18n.t('basic.error.', command: cmd), data, locale: user.locale)
+    OnakaBot::Base.post(I18n.t('basic.error.', command: cmd, locale: user.locale), data)
   end
 end
