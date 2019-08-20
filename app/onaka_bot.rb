@@ -22,18 +22,20 @@ module OnakaBot
 
   def self.start!
     SLACK_CLIENT.on :message do |data|
-      next if data.text.nil?
+      Thread.new(data) do
+        next if data.text.nil?
 
-      text = Slack::Messages::Formatting.unescape(data.text)
+        Slack::Messages::Formatting.unescape(data.text).each_line do |text|
+          Onaka.update_frequency(text)
 
-      Onaka.update_frequency(text)
+          next unless text.start_with?('onaka ')
 
-      if text.start_with?('onaka ')
-        user = User.find_or_create_by!(slack_id: data.user)
-        current_time = Time.at(data.ts.to_f)
-        _, cmd, *argv = text.split
+          user = User.find_or_create_by!(slack_id: data.user)
+          current_time = Time.at(data.ts.to_f)
+          _, cmd, *argv = text.split
 
-        execute(cmd, argv, user, current_time, data)
+          execute(cmd, argv, user, current_time, data)
+        end
       end
     end
 
