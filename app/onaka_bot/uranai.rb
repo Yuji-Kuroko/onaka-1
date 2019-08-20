@@ -22,7 +22,7 @@ module OnakaBot
     end
 
     def self.uranai(count, user, current_time, data)
-      result = ActiveRecord::Base.transaction {
+      result = ActiveRecord::Base.transaction(isolation: :serializable) {
         if user.stamina(current_time) < URANAI_COST * count
           {
             status: :lack_of_stamina,

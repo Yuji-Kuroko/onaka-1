@@ -67,7 +67,7 @@ class Onaka < ActiveRecord::Base
   end
 
   def self.update_frequency(text)
-    ActiveRecord::Base.transaction do
+    ActiveRecord::Base.transaction(isolation: :serializable) do
       Emoji.where(name: text.scan(EMOJI_PATTERN).uniq).find_each do |emoji|
         emoji.onaka.then do |onaka|
           onaka.update!(frequency: onaka.frequency + 1)

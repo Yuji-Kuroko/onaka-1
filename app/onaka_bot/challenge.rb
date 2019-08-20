@@ -21,7 +21,7 @@ module OnakaBot
     end
 
     def self.challenge(user, current_time, data, target: nil, bet: nil)
-      result = ActiveRecord::Base.transaction {
+      result = ActiveRecord::Base.transaction(isolation: :serializable) {
         current_stamina = user.stamina(current_time)
 
         bet ||= current_stamina

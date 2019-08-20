@@ -20,7 +20,7 @@ module OnakaBot
     end
 
     def self.status(user, current_time, data)
-      score, rank, bar = ActiveRecord::Base.transaction {
+      score, rank, bar = ActiveRecord::Base.transaction(isolation: :serializable) {
         [
           user.score,
           user.rank,

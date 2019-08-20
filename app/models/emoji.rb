@@ -16,7 +16,7 @@ class Emoji < ActiveRecord::Base
     return false unless emoji_list['ok']
 
     # OPTIMIZE: timestamp 使って古いの消そう？
-    ActiveRecord::Base.transaction do
+    ActiveRecord::Base.transaction(isolation: :serializable) do
       emoji_list['emoji'].each do |emoji_name, url|
         onaka_name = url.start_with?('alias:') ? url.split(':')[1] : emoji_name
 
