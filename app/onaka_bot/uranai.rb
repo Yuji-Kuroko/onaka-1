@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require './app/onaka_bot/base'
 require './app/lib/i18n_settings'
 
 module OnakaBot
   module Uranai
-    extend Base
-
     URANAI_COST = 15
 
     def self.help(locale)
@@ -48,7 +45,7 @@ module OnakaBot
         post(
           I18n.t(
             'modules.uranai.lack_of_stamina.',
-            stamina_bar: progress_bar(result[:current_stamina], result[:stamina_capacity]),
+            stamina_bar: Helper.progress_bar(result[:current_stamina], result[:stamina_capacity]),
             count: count,
             required_stamina: result[:required_stamina],
             locale: user.locale,

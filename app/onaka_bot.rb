@@ -2,6 +2,8 @@
 
 require './app/lib/slack_client'
 require './app/lib/connect_database'
+require './app/lib/utilities'
+require './app/lib/helper'
 require './app/models/user'
 require './app/models/emoji'
 require './app/lib/i18n_settings'
@@ -10,8 +12,6 @@ Dir.glob('./app/onaka_bot/*.rb').each(&method(:require))
 
 # Slack からの入力のパースと bot の振る舞い
 module OnakaBot
-  extend OnakaBot::Base
-
   BOT_MODULES = [
     Config,
     Uranai,
@@ -47,6 +47,6 @@ module OnakaBot
   end
 
   def self.error(cmd, user, data)
-    OnakaBot::Base.post(I18n.t('basic.error.', command: cmd, locale: user.locale), data)
+    post(I18n.t('basic.error.', command: cmd, locale: user.locale), data)
   end
 end

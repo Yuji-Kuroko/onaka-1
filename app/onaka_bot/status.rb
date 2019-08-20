@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require './app/onaka_bot/base'
 require './app/lib/i18n_settings'
 
 module OnakaBot
   module Status
-    extend Base
-
     def self.help(locale)
       I18n.t('modules.status.help.', locale: locale)
     end
@@ -24,7 +21,7 @@ module OnakaBot
         [
           user.score,
           user.rank,
-          progress_bar(user.stamina(current_time), user.stamina_capacity),
+          Helper.progress_bar(user.stamina(current_time), user.stamina_capacity),
         ]
       }
 

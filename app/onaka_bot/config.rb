@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require './app/onaka_bot/base'
 require './app/lib/i18n_settings'
 
 module OnakaBot
   module Config
-    extend Base
-
     def self.help(locale)
       I18n.t(
         'modules.config.help.',

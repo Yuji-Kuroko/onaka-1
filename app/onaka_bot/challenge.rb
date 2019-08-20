@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require './app/onaka_bot/base'
 require './app/lib/i18n_settings'
 
 module OnakaBot
   module Challenge
-    extend Base
-
     def self.help(locale)
       I18n.t('modules.challenge.help.', locale: locale)
     end
