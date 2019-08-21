@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ENV['ONAKA_ENV'] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
 require 'bundler/setup'
 Bundler.require(:default, :test)
