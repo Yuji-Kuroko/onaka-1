@@ -17,6 +17,7 @@ module OnakaBot
     Uranai,
     Status,
     Challenge,
+    Ranking,
     Help,
   ].freeze
 

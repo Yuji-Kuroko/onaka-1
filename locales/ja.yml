@@ -24,6 +24,12 @@ ja:
       check_locale: "あなたの言語設定は %{current_locale} です"
       locale_changed: "あなたの言語設定は %{set_locale} に変更されました"
 
+    ranking:
+      help: |
+        *onaka ranking*
+            現在のスコアランキングトップ 10 を表示します。
+      noname: 名無しさん
+
     uranai:
       help: |
         *onaka ?*
