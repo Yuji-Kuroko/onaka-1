@@ -28,13 +28,6 @@ module OnakaBot
 
         if bet.positive? && bet < target && bet <= current_stamina
           # 賭けスタミナ < 目標スタミナ && 賭けスタミナ <= 現在のスタミナ
-          {
-            status: :out_of_range_bet,
-            bet: bet,
-            target: target,
-            current_stamina: current_stamina,
-          }
-        else
           user.decrease_stamina!(current_time, bet)
           status = if rand < prob
             # チャレンジ成功
@@ -52,6 +45,13 @@ module OnakaBot
             current_stamina: current_stamina,
             prob: prob,
             result: user.stamina(current_time),
+          }
+        else
+          {
+            status: :out_of_range_bet,
+            bet: bet,
+            target: target,
+            current_stamina: current_stamina,
           }
         end
       }
