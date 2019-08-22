@@ -1,0 +1,4 @@
+/vendor/bundle
+/Dockerfile
+/docker-compose.yml
+/postgres

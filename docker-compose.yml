@@ -1,15 +1,24 @@
 version: '3.3'
 services:
+  app:
+    restart: always
+    build: .
+    environment:
+      RAILS_ENV: production
+      ONAKA_DB_HOST: db
+      ONAKA_DB_PORT: 5432
+      ONAKA_DB_USERNAME: postgres
+      ONAKA_DB_PASSWORD:
+      HUBOT_SLACK_TOKEN: ${HUBOT_SLACK_TOKEN}
+    command: /usr/bin/env ruby ./bin/run
+    depends_on:
+      - db
   db:
     restart: always
     image: postgres:9.6
     environment:
-      POSTGRES_USER: ${ONAKA_DB_USERNAME}
-      POSTGRES_PASSWORD: ${ONAKA_DB_PASSWORD}
-    ports:
-      - target: 5432
-        published: ${ONAKA_DB_PORT}
-        protocol: tcp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
     volumes:
