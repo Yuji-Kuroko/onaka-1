@@ -26,8 +26,8 @@ module OnakaBot
 
         prob = bet.fdiv(target) # チャレンジ成功率
 
-        if bet <= 0 || target <= bet
-          # 賭けスタミナが範囲外 (0 < 賭けスタミナ < 目標スタミナ が満たされていない)
+        if bet.positive? && bet < target && bet <= current_stamina
+          # 賭けスタミナ < 目標スタミナ && 賭けスタミナ <= 現在のスタミナ
           {
             status: :out_of_range_bet,
             bet: bet,
