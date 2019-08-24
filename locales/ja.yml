@@ -71,3 +71,15 @@ ja:
       failed: |
         %{result} になりました。
         残念でした。^p^
+
+    tool:
+      help: |
+        *onaka tool role* _i_​*d*​_j_
+            ダイスロールをおこないます。
+      subcmd_not_found: ":error: tool のサブコマンド *%{subcommand}* は見つかりません"
+      subcmd_not_given: ":error: tool にサブコマンドが与えられていません"
+      critical: CRITICAL
+      fumble: FUMBLE
+      invalid_argument: |
+        :error: ダイスロールの条件が不正です。
+        条件は _i_​*d*​_j_ で与えられ、 _i_ は 1 以上、 _j_ は 2 以上である必要があります。

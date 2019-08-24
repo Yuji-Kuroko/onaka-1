@@ -19,6 +19,7 @@ module OnakaBot
     Challenge,
     Ranking,
     Help,
+    Tool,
   ].freeze
 
   def self.start!
