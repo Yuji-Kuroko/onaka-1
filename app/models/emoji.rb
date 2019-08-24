@@ -18,14 +18,22 @@ class Emoji < ActiveRecord::Base
     # OPTIMIZE: timestamp 使って古いの消そう？
     ActiveRecord::Base.transaction(isolation: :serializable) do
       emoji_list['emoji'].each do |emoji_name, url|
-        onaka_name = url.start_with?('alias:') ? url.split(':')[1] : emoji_name
-
-        onaka = Onaka.find_or_initialize_by(name: onaka_name)
-        onaka.update!(url: url) if url.start_with?('http')
-
-        emoji = Emoji.find_or_initialize_by(name: emoji_name)
-        emoji.update!(onaka_id: onaka.id)
+        add_emoji(emoji_name, url)
       end
     end
+  end
+
+  def self.add_emoji(emoji_name, url)
+    onaka_name = url.start_with?('alias:') ? url.split(':')[1] : emoji_name
+
+    onaka = Onaka.find_or_initialize_by(name: onaka_name)
+    onaka.update!(url: url) if url.start_with?('http')
+
+    emoji = Emoji.find_or_initialize_by(name: emoji_name)
+    emoji.update!(onaka_id: onaka.id)
+  end
+
+  def self.remove_emoji(emoji_name)
+    raise 'not implemented yet'
   end
 end

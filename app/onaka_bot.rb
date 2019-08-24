@@ -40,6 +40,16 @@ module OnakaBot
       end
     end
 
+    SLACK_CLIENT.on :emoji_changed do |data|
+      # 絵文字追加 / 削除
+      case data.subtype
+      when 'add'
+        Emoji.add_emoji(data.name, data.value)
+      when 'remove'
+        # data.names.each(&Emoji.method(:remove_emoji))
+      end
+    end
+
     SLACK_CLIENT.start!
   end
 
