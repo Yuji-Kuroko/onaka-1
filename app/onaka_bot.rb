@@ -40,6 +40,12 @@ module OnakaBot
       end
     end
 
+    SLACK_CLIENT.on :user_change do |data|
+      # ユーザ作成 / 更新
+      user = User.find_or_create_by!(slack_id: data.user.id)
+      user.update!(name: data.user.profile.display_name)
+    end
+
     SLACK_CLIENT.start!
   end
 
