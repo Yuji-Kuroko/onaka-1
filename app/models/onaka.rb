@@ -12,7 +12,7 @@ class Onaka < ActiveRecord::Base
   has_many :emojis
 
   scope :order_by_frequency, -> { order(frequency: :desc) }
-  scope :has_appeared, -> { where.not(frequency: 0) }
+  scope :has_appeared, -> { where.not(frequency: 0..1) } # 2回以上の出現をもって appeared とする
 
   def display_name
     custom_display_name || ":onaka: :#{name}:"
