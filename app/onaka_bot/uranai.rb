@@ -11,7 +11,7 @@ module OnakaBot
     end
 
     def self.exec(cmd, _argv, user, current_time, data)
-      return false unless cmd =~ /\?+/
+      return false unless cmd =~ /^\?+$/
 
       uranai(cmd.size, user, current_time, data)
 
