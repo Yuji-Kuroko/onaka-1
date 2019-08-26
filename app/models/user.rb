@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
     User.where.not(score: 0..score).count + 1
   end
 
-  def increase_stamina(current_time, soft_inc = 0)
+  def increase_stamina(current_time, soft_inc)
     update!(
       last_stamina: [
         [
@@ -39,18 +39,18 @@ class User < ActiveRecord::Base
     )
   end
 
-  def decrease_stamina(current_time, soft_inc = 0)
+  def decrease_stamina(current_time, soft_inc)
     increase_stamina(current_time, -soft_inc)
   end
 
-  def increase_stamina!(current_time, hard_inc = 0)
+  def increase_stamina!(current_time, hard_inc)
     update!(
       last_stamina: stamina(current_time) + hard_inc,
       stamina_updated_at: current_time,
     )
   end
 
-  def decrease_stamina!(current_time, hard_inc = 0)
+  def decrease_stamina!(current_time, hard_inc)
     increase_stamina!(current_time, -hard_inc)
   end
 
