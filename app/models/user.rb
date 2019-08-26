@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
     User.where.not(score: 0..score).count + 1
   end
 
+  def handicap
+    [(User.order_by_score.first.score * 2).fdiv(score + 1).round - 1, 10].min
+  end
+
   def increase_stamina(current_time, soft_inc)
     update!(
       last_stamina: [

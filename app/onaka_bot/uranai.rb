@@ -29,7 +29,7 @@ module OnakaBot
           }
         else
           user.decrease_stamina!(current_time, URANAI_COST * count)
-          drawed_onakas = Onaka.draw(count)
+          drawed_onakas = Array.new(count) { Onaka.draw(user.handicap).min_by(&:frequency) }
           user.onakas.push(drawed_onakas)
           user.update!(score: user.score + drawed_onakas.sum { |o| 2**(o.rarity_level + 4) })
 
