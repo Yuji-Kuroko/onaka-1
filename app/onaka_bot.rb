@@ -29,7 +29,7 @@ module OnakaBot
         Slack::Messages::Formatting.unescape(data.text).each_line do |text|
           Onaka.update_frequency(text)
 
-          next unless text.start_with?('onaka ')
+          next unless text.start_with?(/(onaka|onk) /)
 
           user = User.find_or_create_by!(slack_id: data.user)
           current_time = Time.at(data.ts.to_f)
@@ -38,6 +38,12 @@ module OnakaBot
           execute(cmd, argv, user, current_time, data)
         end
       end
+    end
+
+    SLACK_CLIENT.on :user_change do |data|
+      # ユーザ作成 / 更新
+      user = User.find_or_create_by!(slack_id: data.user.id)
+      user.update!(name: data.user.profile.display_name)
     end
 
     SLACK_CLIENT.start!

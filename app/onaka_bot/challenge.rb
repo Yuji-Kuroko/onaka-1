@@ -27,7 +27,9 @@ module OnakaBot
         prob = bet.fdiv(target) # チャレンジ成功率
 
         if bet.positive? && bet < target && bet <= current_stamina
-          # 賭けスタミナ < 目標スタミナ && 賭けスタミナ <= 現在のスタミナ
+          # 0 < 賭けスタミナ
+          # 賭けスタミナ < 目標スタミナ
+          # 賭けスタミナ <= 現在のスタミナ
           user.decrease_stamina!(current_time, bet)
           status = if rand < prob
             # チャレンジ成功
