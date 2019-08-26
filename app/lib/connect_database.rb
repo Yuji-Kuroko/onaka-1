@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'yaml'
+require 'erb'
+
 rails_env = ENV.fetch('RAILS_ENV', 'development')
 DB_CONFIG_PATH = 'db/config.yml'
 
