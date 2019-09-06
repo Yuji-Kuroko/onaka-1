@@ -1,4 +1,4 @@
-# onaka
+![onaka](./artwork/logo.png)
 
 開発するならこんな感じ。
 
