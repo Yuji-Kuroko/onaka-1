@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_103352) do
+ActiveRecord::Schema.define(version: 2019_10_01_214043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_103352) do
     t.datetime "updated_at", null: false
     t.string "locale", default: "ja", comment: "user preferred locale"
     t.string "name", comment: "Slack display name"
+    t.datetime "boosted_stamina_at", comment: "stamina boosted at"
     t.index ["slack_id"], name: "index_users_on_slack_id"
   end
 

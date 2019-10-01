@@ -54,6 +54,30 @@ class User < ActiveRecord::Base
     increase_stamina!(current_time, -hard_inc)
   end
 
+  def can_boost_stamina?
+    # ブースト可能になる時刻を調整可能にするため、時刻も一応拾ってる
+    boosted_stamina_at&.to_date != Date.today
+  end
+
+  def boost_stamina!(current_time)
+    return unless can_boost_stamina?
+    plus_stamina = boosting_stamina
+    increase_stamina!(current_time, plus_stamina)
+    update!(boosted_stamina_at: current_time)
+    plus_stamina
+  end
+
+  def boosting_stamina
+    # ランキングとスコアによりブースト値が異なる
+    boosting_coefficient = [*([1] * 17), *([1.5] * 2), *([2] * 1)].sample
+    ((rank * 15) + ((User.first_rank_score - score) * 15 / 2000)) * boosting_coefficient
+  end
+
+  # 1位のスコアを参照すること多そうなので
+  def self.first_rank_score
+    User.order_by_score.first&.score || 0
+  end
+
   def self.update_user_name
     SLACK_CLIENT.web_client.users_list['members'].each do |user_data|
       name = user_data['profile'].then { |pr| pr['display_name'].empty? ? pr['real_name'] : pr['display_name'] }
