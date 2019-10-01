@@ -71,3 +71,16 @@ ja:
       failed: |
         %{result} になりました。
         残念でした。^p^
+    boost:
+      help: |
+        *onaka boost*
+            スタミナをブースト回復します。
+            一日に一度だけ使用可能です。
+            ブーストするスタミナは以下の要素が影響します。
+            現在の順位、1位とのスコア差、ランダム補正
+      success: |
+        :boom::boom::boom: *%{increase_stamina}* のブーストに成功しました :boom::boom::boom:
+        :boom::boom::boom: 現在のスタミナは *%{current_stamina}* です :boom::boom::boom:
+      failed: |
+        :error: 今日は既にブースト済みです。
+        ブーストは一日一回まで可能です。
