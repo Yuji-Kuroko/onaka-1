@@ -82,5 +82,5 @@ ja:
         :boom::boom::boom: *%{increase_stamina}* のブーストに成功しました :boom::boom::boom:
         :boom::boom::boom: 現在のスタミナは *%{current_stamina}* です :boom::boom::boom:
       failed: |
-        :error: 今日は既にブースト済みです。
-        ブーストは一日一回まで可能です。
+        :error: ブーストに失敗しました。
+        ブーストは1日1回、スタミナの最大値を超過していない状態で使用できます。
