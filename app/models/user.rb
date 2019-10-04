@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
 
   def boost_stamina!(current_time)
     return unless can_boost_stamina?(current_time)
+
     plus_stamina = boosting_stamina
     increase_stamina!(current_time, plus_stamina)
     update!(boosted_stamina_at: current_time)
