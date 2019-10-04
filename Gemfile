@@ -12,6 +12,7 @@ gem "async-websocket", "~> 0.8.0"
 
 group :development do
   gem "pry", "~> 0.12.2"
+  gem "rubocop", "~> 0.75.0"
 end
 
 group :development, :test do

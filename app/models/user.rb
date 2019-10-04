@@ -54,13 +54,14 @@ class User < ActiveRecord::Base
     increase_stamina!(current_time, -hard_inc)
   end
 
-  def can_boost_stamina?
+  def can_boost_stamina?(current_time)
     # ブースト可能になる時刻を調整可能にするため、時刻も一応拾ってる
-    boosted_stamina_at&.to_date != Date.today
+    (boosted_stamina_at&.to_date != Date.today) && (stamina_capacity >= stamina(current_time))
   end
 
   def boost_stamina!(current_time)
-    return unless can_boost_stamina?
+    return unless can_boost_stamina?(current_time)
+
     plus_stamina = boosting_stamina
     increase_stamina!(current_time, plus_stamina)
     update!(boosted_stamina_at: current_time)
@@ -70,7 +71,7 @@ class User < ActiveRecord::Base
   def boosting_stamina
     # ランキングとスコアによりブースト値が異なる
     boosting_coefficient = [*([1] * 17), *([1.5] * 2), *([2] * 1)].sample
-    ((rank * 15) + ((User.first_rank_score - score) * 15 / 2000)) * boosting_coefficient
+    ((stamina_capacity + (rank * 15) + ((User.first_rank_score - score) * 15 / 2000)) * boosting_coefficient).to_i
   end
 
   # 1位のスコアを参照すること多そうなので

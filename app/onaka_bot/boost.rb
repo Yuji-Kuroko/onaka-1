@@ -17,7 +17,7 @@ module OnakaBot
     end
 
     def self.boost(user, current_time, data)
-      unless user.can_boost_stamina?
+      unless user.can_boost_stamina?(current_time)
         post(
           I18n.t('modules.boost.failed.'),
           data
