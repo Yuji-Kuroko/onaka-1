@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 
   def can_boost_stamina?(current_time)
     # ブースト可能になる時刻を調整可能にするため、時刻も一応拾ってる
-    (boosted_stamina_at&.to_date != Date.today) && (stamina_capacity <= stamina(current_time))
+    (boosted_stamina_at&.to_date != Date.today) && (stamina_capacity >= stamina(current_time))
   end
 
   def boost_stamina!(current_time)
