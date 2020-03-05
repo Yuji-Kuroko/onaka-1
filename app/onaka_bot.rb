@@ -20,6 +20,7 @@ module OnakaBot
     Ranking,
     Help,
     Boost,
+    Burst,
   ].freeze
 
   def self.start!
@@ -31,7 +32,7 @@ module OnakaBot
           Onaka.update_frequency(text)
 
           next unless text.start_with?(/(onaka|onk) /)
-
+          Slack::Messages::Formatting
           user = User.find_or_create_by!(slack_id: data.user)
           current_time = Time.at(data.ts.to_f)
           _, cmd, *argv = text.split
