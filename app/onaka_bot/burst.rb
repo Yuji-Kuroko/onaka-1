@@ -17,7 +17,7 @@ module OnakaBot
     end
 
     def self.burst(user, current_time, data)
-      if 0 == user.stamina(current_time)
+      if user.stamina(current_time).zero?
         post(
           I18n.t('modules.burst.failed.'),
           data
