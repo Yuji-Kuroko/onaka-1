@@ -20,6 +20,7 @@ module OnakaBot
     Ranking,
     Help,
     Boost,
+    Burst,
   ].freeze
 
   def self.start!
