@@ -13,7 +13,7 @@ module OnakaBot
 
       post(
         User.order_by_score.take(10).map.with_index(1) { |u, rank|
-          "#{'%2dth' % rank}. #{u.name.nil? ? "_#{u.slack_id}_" : "*#{u.name}*"}   #{u.score}pts"
+          "#{rank.ordinalize}. #{u.name.nil? ? "_#{u.slack_id}_" : "*#{u.name}*"}   #{u.score.to_s(:delimited)}pts"
         }.join("\n"),
         data,
       )
