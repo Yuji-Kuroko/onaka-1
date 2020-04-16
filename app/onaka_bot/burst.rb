@@ -17,10 +17,8 @@ module OnakaBot
       true
     end
 
-    def self.burst(user, current_time, data, target_stamina: nil)
-      target_stamina ||= user.stamina(current_time)
-      target_stamina = 0 if target_stamina.negative?
-      target_stamina = user.stamina(current_time) if target_stamina > user.stamina(current_time)
+    def self.burst(user, current_time, data, target_stamina: user.stamina(current_time))
+      target_stamina = target_stamina.clamp(0, user.stamina(current_time))
 
       if user.stamina(current_time).zero?
         post(
