@@ -11,12 +11,17 @@ module OnakaBot
     def self.exec(cmd, argv, user, current_time, data)
       return false unless cmd == 'burst'
 
-      burst(user, current_time, data)
+      target_stamina = argv.take(1).map(&:to_i).first
+      burst(user, current_time, data, target_stamina: target_stamina)
 
       true
     end
 
-    def self.burst(user, current_time, data)
+    def self.burst(user, current_time, data, target_stamina: nil)
+      target_stamina ||= user.stamina(current_time)
+      target_stamina = 0 if target_stamina.negative?
+      target_stamina = user.stamina(current_time) if target_stamina > user.stamina(current_time)
+
       if user.stamina(current_time).zero?
         post(
           I18n.t('modules.burst.failed.'),
@@ -28,8 +33,8 @@ module OnakaBot
       # 処理が若干重複気味ではある
       ActiveRecord::Base.transaction(isolation: :serializable) do
         # 端数がある場合、確率で1回分回せる
-        count = (user.stamina(current_time).fdiv(OnakaBot::Uranai::URANAI_COST) + Random.rand).to_i
-        user.decrease_stamina!(current_time, user.stamina(current_time))
+        count = (target_stamina.fdiv(OnakaBot::Uranai::URANAI_COST) + Random.rand).to_i
+        user.decrease_stamina!(current_time, target_stamina)
 
         drawed_onakas = Onaka.draw(count)
         got_score = drawed_onakas.sum { |o| 2**(o.rarity_level + 4) }
